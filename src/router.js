@@ -114,13 +114,6 @@ export default new Router({
       }
     },
     {
-      path: '/docs',
-      name: 'documentation',
-      component: function () {
-        return import(/* webpackChunkName: "about" */ './views/Docs.vue')
-      }
-    },
-    {
       path: '/user/:userid/tutorial',
       name: 'tutorial',
       component: function () {
