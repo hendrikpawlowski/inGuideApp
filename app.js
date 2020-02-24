@@ -1,7 +1,7 @@
 var express = require("express");
 const app = express();
 var graphqlHTTP = require("express-graphql");
-const cors = require("cors");
+// const cors = require("cors");
 const serveStatic = require("serve-static");
 const path = require("path");
 var mongoose = require("mongoose");
@@ -12,7 +12,7 @@ const Painting = require("./graphql/models/painting");
 
 const startServer = async () => {
 
-  app.use(cors());
+  // app.use(cors());
 
   app.use('/', serveStatic(path.join(__dirname, '/dist')));
 
