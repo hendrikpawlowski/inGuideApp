@@ -1,17 +1,24 @@
 <template>
   <div class="search">
-    <head-bar headline="Suche"
-              page-info-headline="Gemäldesuche:"
-              page-info="Hier können Sie manuell nach einem bestimmten Gemälde in unserem Archiv suchen. Geben Sie dazu einfach
+    <head-bar
+      headline="Suche"
+      page-info-headline="Gemäldesuche:"
+      page-info="Hier können Sie manuell nach einem bestimmten Gemälde in unserem Archiv suchen. Geben Sie dazu einfach
                           den Titel des Gemäldes ein und tippen auf 'Ok'. Sie können das Eingabefeld auch leer lassen und auf 'Ok'
-                          tippen, um alle verfügbaren Gemälde anzeigen zu lassen."></head-bar>
+                          tippen, um alle verfügbaren Gemälde anzeigen zu lassen."
+    ></head-bar>
     <div class="wrapper">
       <input
         type="search input-field"
         class="searchInput animated fadeIn"
         placeholder="Titel z.B. Bildnis des Johannes Cuspinian"
       />
-      <input type="submit" value="Ok" class="button-submit button-text" @click="findPaintingsByTitle">
+      <input
+        type="submit"
+        value="Ok"
+        class="button-submit button-text"
+        @click="findPaintingsByTitle"
+      />
     </div>
     <ul>
       <li class="animated fadeIn" v-for="painting in paintingMatch" v-bind:key="painting.title">
@@ -45,17 +52,15 @@ export default {
       searchValue: ""
     };
   },
-  async created() {
-
-  },
+  async created() {},
   methods: {
     async findPaintingsByTitle() {
-        let title = document.querySelector(".searchInput").value;
-        let result = await axios({
-            method: "POST",
-            url: "http://localhost:4000/graphql",
-            data: {
-                query: `
+      let title = document.querySelector(".searchInput").value;
+      let result = await axios({
+        method: "POST",
+        url: "/graphql",
+        data: {
+          query: `
             {
               paintings(title: "${title}") {
                 id
@@ -74,16 +79,16 @@ export default {
               }
             }
           `
-            }
-        });
+        }
+      });
 
       this.paintingList = result.data.data.paintings;
-      console.log(this.paintingList[0])
+      console.log(this.paintingList[0]);
       // this.paintingList.forEach(function(elm) {
       //   let elmTitle = elm.title.toUpperCase();
       //   if (elmTitle.substring(0, title.length) === title) findings.push(elm);
       // });
-      return this.paintingMatch = this.paintingList;
+      return (this.paintingMatch = this.paintingList);
     },
     findPaintingsByDate() {
       let date = document.querySelector(".searchInput").value;
@@ -92,7 +97,7 @@ export default {
         let datedString = elm.dated.toString();
         if (datedString.substring(0, date.length) === date) findings.push(elm);
       });
-      return this.paintingMatch = findings;
+      return (this.paintingMatch = findings);
     },
     addSearchListener() {
       let _this = this;
