@@ -58,7 +58,7 @@ export default {
       let title = document.querySelector(".searchInput").value;
       let result = await axios({
         method: "POST",
-        url: "http://localhost:4000/graphql",
+        url: "/graphql",
         data: {
           query: `
             {
